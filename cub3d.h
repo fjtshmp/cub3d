@@ -7,6 +7,7 @@
 #define KEY_RIGHT 124
 #define KEY_ESC 53
 #define MOVE_SPEED 0.1
+#define ROT_SPEED 0.05
 
 typedef struct s_color
 {
@@ -67,6 +68,31 @@ typedef struct s_game
 	t_color		floor;
 	t_color		ceiling;
 }				t_game;
+
+typedef struct s_ray
+{
+	double		camera_x;
+	double		ray_dir_x;
+	double		ray_dir_y;
+
+	int			map_x;
+	int			map_y;
+
+	double		delta_dist_x;
+	double		delta_dist_y;
+	double		side_dist_x;
+	double		side_dist_y;
+
+	int			step_x;
+	int			step_y;
+	int			hit;
+	int			side;
+
+	double		perp_wall_dist;
+	int			line_height;
+	int			draw_start;
+	int			draw_end;
+}				t_ray;
 
 void			exit_game(t_game *state);
 int				load_textures(t_game *state);
