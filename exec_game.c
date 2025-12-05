@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_game.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yseto < yseto@student.42tokyo.jp Mail>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/05 17:27:13 by yseto             #+#    #+#             */
+/*   Updated: 2025/12/05 17:28:49 by yseto            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 int	handle_key(int keycode, t_game *state)
@@ -36,4 +48,5 @@ int	exec_game(t_game *state)
 	mlx_hook(state->mlx.win_ptr, 17, 0, exit_game, state);
 	mlx_loop_hook(state->mlx.mlx_ptr, game_loop, state);
 	mlx_loop(state->mlx.mlx_ptr);
+	return (0);
 }
