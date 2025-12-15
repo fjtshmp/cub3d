@@ -6,7 +6,7 @@
 /*   By: yseto < yseto@student.42tokyo.jp Mail>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 17:27:13 by yseto             #+#    #+#             */
-/*   Updated: 2025/12/05 17:28:49 by yseto            ###   ########.fr       */
+/*   Updated: 2025/12/05 18:30:34 by yseto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@ int	handle_key(int keycode, t_game *state)
 	if (keycode == KEY_RIGHT)
 		rotate_right(state);
 	return (0);
+}
+
+void	exit_game(t_game *state)
+{
+	clean_state(state);
+	exit(1);
 }
 
 int	game_loop(t_game *state)

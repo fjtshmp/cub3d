@@ -38,10 +38,13 @@ typedef struct s_map
 
 typedef struct s_player
 {
+	//x,y座標上のプレイヤーの位置
 	double		pos_x;
 	double		pos_y;
+	//プレイヤーの向きを表すベクトル
 	double		dir_x;
 	double		dir_y;
+	//プレイヤーの向きベクトルと直行するベクトル
 	double		plane_x;
 	double		plane_y;
 }				t_player;
@@ -71,28 +74,41 @@ typedef struct s_game
 
 typedef struct s_ray
 {
+	//スクリーン上を左から右へ動く座標上の点x（-1~1）
 	double		camera_x;
-	double		ray_dir_x;
-	double		ray_dir_y;
-
+	//光の方向ベクトル
+	double		dir_x;
+	double		dir_y;
+	//進んでいる光のマップ上の座標
 	int			map_x;
 	int			map_y;
-
-	double		delta_dist_x;
-	double		delta_dist_y;
+	//光の現在地点から最も近いグリッド線までの距離
 	double		side_dist_x;
 	double		side_dist_y;
-
+	//x,y方向に１マス進むのに必要な距離
+	double		delta_dist_x;
+	double		delta_dist_y;
+	//魚眼補正後の壁までの距離
+	double		perp_wall_dist;
+	//光が進む方向　-1 or 1
 	int			step_x;
 	int			step_y;
+	//光が壁にあたったかどうかを表すフラグ
 	int			hit;
+	//光がどの面にあたったか縦の壁=0, 横の壁=1
 	int			side;
-
-	double		perp_wall_dist;
+	//画面上に描く壁の高さ
 	int			line_height;
+	//壁を描画する縦方向の範囲
 	int			draw_start;
 	int			draw_end;
 }				t_ray;
 
 void			exit_game(t_game *state);
 int				load_textures(t_game *state);
+void			move_forward(t_game *state);
+void			move_backward(t_game *state);
+void			move_right(t_game *state);
+void			move_left(t_game *state);
+void			rotate_left(t_game *state);
+void			rotate_right(t_game *state);
