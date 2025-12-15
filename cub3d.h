@@ -82,10 +82,10 @@ typedef struct s_ray
 	//進んでいる光のマップ上の座標
 	int			map_x;
 	int			map_y;
-	//光の現在地点から最も近いグリッド線までの距離
+	//仮想的に進む光が次に接触するグリッド線までのスタート地点からの距離
 	double		side_dist_x;
 	double		side_dist_y;
-	//x,y方向に１マス進むのに必要な距離
+	//x,y方向に１マス進めたときの距離の増加分
 	double		delta_dist_x;
 	double		delta_dist_y;
 	//魚眼補正後の壁までの距離

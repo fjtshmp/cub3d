@@ -6,7 +6,7 @@
 /*   By: yseto < yseto@student.42tokyo.jp Mail>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 13:42:25 by yseto             #+#    #+#             */
-/*   Updated: 2025/12/15 18:19:25 by yseto            ###   ########.fr       */
+/*   Updated: 2025/12/15 18:30:43 by yseto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	cast_rays(t_game *state)
 
 	x = 0;
 	while (x < WIDTH)
-		　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　   　　　　　　
 		{
 			init_ray(state, &ray, x);
 			init_dda(state, &ray);
