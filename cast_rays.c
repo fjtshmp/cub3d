@@ -6,13 +6,13 @@
 /*   By: yseto < yseto@student.42tokyo.jp Mail>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 13:42:25 by yseto             #+#    #+#             */
-/*   Updated: 2025/12/15 18:30:43 by yseto            ###   ########.fr       */
+/*   Updated: 2026/01/06 15:30:48 by yseto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	perform_dda(t_game *state, t_ray *ray)
+static void	perform_dda(t_game *state, t_ray *ray)
 {
 	while (ray->hit == 0)
 	{
@@ -33,20 +33,51 @@ void	perform_dda(t_game *state, t_ray *ray)
 	}
 }
 
+void	calc_wall_distance(t_game *state, t_ray *ray)
+{
+	if (ray->side == 0)
+	{
+		ray->perp_wall_dist = (ray->map_x - state->player.pos_x + (1
+					- ray->step_x) / 2.0) / ray->dir_x;
+	}
+	else
+	{
+		ray->perp_wall_dist = (ray->map_y - state->player.pos_y + (1
+					- ray->step_y) / 2.0) / ray->dir_y;
+	}
+}
+
+void	calc_wall_height(t_game *state, t_ray *ray)
+{
+	int	h;
+
+	h = state->mlx.win_height;
+	ray->line_height = (int)(h / ray->perp_wall_dist);
+
+	ray->draw_start = -ray->line_height / 2 + h / 2;
+	if (ray->draw_start < 0)
+		ray->draw_start = 0;
+
+	ray->draw_end = ray->line_height / 2 + h / 2;
+	if (ray->draw_end >= h)
+		ray->draw_end = h - 1;
+}
+
+
 void	cast_rays(t_game *state)
 {
 	int		x;
 	t_ray	ray;
 
 	x = 0;
-	while (x < WIDTH)
-		{
-			init_ray(state, &ray, x);
-			init_dda(state, &ray);
-			perform_dda(state, &ray);
-			calc_wall_distance(state, &ray);
-			calc_wall_height(&ray);
-			draw_vertical_stripe(state, &ray, x);
-			x++;
-		}
+	while (x < state->mlx.win_width)
+	{
+		init_ray(state, &ray, x);
+		init_dda(state, &ray);
+		perform_dda(state, &ray);
+		calc_wall_distance(state, &ray);
+		calc_wall_height(state,&ray);
+		draw_vertical_stripe(state, &ray, x);
+		x++;
+	}
 }

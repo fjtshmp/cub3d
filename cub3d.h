@@ -1,4 +1,8 @@
 
+#define TEX_NO 0
+#define TEX_SO 1
+#define TEX_WE 2
+#define TEX_EA 3
 #define KEY_W 13
 #define KEY_A 0
 #define KEY_S 1
@@ -38,7 +42,7 @@ typedef struct s_map
 
 typedef struct s_player
 {
-	//x,y座標上のプレイヤーの位置
+	// x,y座標上のプレイヤーの位置
 	double		pos_x;
 	double		pos_y;
 	//プレイヤーの向きを表すベクトル
@@ -82,10 +86,10 @@ typedef struct s_ray
 	//進んでいる光のマップ上の座標
 	int			map_x;
 	int			map_y;
-	//仮想的に進む光が次に接触するグリッド線までのスタート地点からの距離
+	//次のグリッドに達するのに必要なレイ方向の距離
 	double		side_dist_x;
 	double		side_dist_y;
-	//x,y方向に１マス進めたときの距離の増加分
+	// x,y方向に1.0進めるのに必要なレイ方向の距離
 	double		delta_dist_x;
 	double		delta_dist_y;
 	//魚眼補正後の壁までの距離
@@ -104,11 +108,30 @@ typedef struct s_ray
 	int			draw_end;
 }				t_ray;
 
+typedef struct s_draw
+{
+	t_tex *tex;     // 使用するテクスチャ（NO / SO / WE / EA）
+	int tex_x;      // テクスチャのX座標
+	int tex_y;      // テクスチャのY座標
+	double step;    // 画面1pxあたりのテクスチャYの進み量
+	double tex_pos; // 現在参照しているテクスチャY位置（double）
+}				t_draw;
+
 void			exit_game(t_game *state);
 int				load_textures(t_game *state);
+
+int				exec_game(t_game *state);
+
 void			move_forward(t_game *state);
 void			move_backward(t_game *state);
 void			move_right(t_game *state);
 void			move_left(t_game *state);
 void			rotate_left(t_game *state);
 void			rotate_right(t_game *state);
+
+void			cast_rays(t_game *state);
+void			init_dda(t_game *state, t_ray *ray);
+void			init_ray(t_game *state, t_ray *ray, int x);
+void			draw_floor_ceiling(t_game *state);
+void			draw_vertical_stripe(t_game *state, t_ray *ray, int x);
+void			init_draw_tex(t_game *state, t_ray *ray, t_draw *d);

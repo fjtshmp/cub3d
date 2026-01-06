@@ -6,7 +6,7 @@
 /*   By: yseto < yseto@student.42tokyo.jp Mail>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 16:58:49 by yseto             #+#    #+#             */
-/*   Updated: 2025/12/15 19:13:46 by yseto            ###   ########.fr       */
+/*   Updated: 2026/01/06 15:32:38 by yseto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,11 @@ void	init_dda(t_game *state, t_ray *ray)
 void	init_ray(t_game *state, t_ray *ray, int x)
 {
 	t_player	*p;
+	double		w;
 
 	p = &state->player;
-	ray->camera_x = 2 * x / (double)WIDTH - 1.0;
+	w = state->mlx.win_width;
+	ray->camera_x = 2.0 * x / w - 1.0;
 	ray->dir_x = p->dir_x + p->plane_x * ray->camera_x;
 	ray->dir_y = p->dir_y + p->plane_y * ray->camera_x;
 	ray->map_x = (int)p->pos_x;

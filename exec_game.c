@@ -6,7 +6,7 @@
 /*   By: yseto < yseto@student.42tokyo.jp Mail>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 17:27:13 by yseto             #+#    #+#             */
-/*   Updated: 2025/12/05 18:30:34 by yseto            ###   ########.fr       */
+/*   Updated: 2026/01/06 15:46:30 by yseto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	exit_game(t_game *state)
 
 int	game_loop(t_game *state)
 {
-	cast_rays(state);
 	draw_floor_ceiling(state);
+	cast_rays(state);
 	mlx_put_image_to_window(state->mlx.mlx_ptr, state->mlx.win_ptr,
 		state->mlx.img_ptr, 0, 0);
 	return (0);
