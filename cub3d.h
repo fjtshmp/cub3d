@@ -9,8 +9,8 @@
 #define KEY_LEFT 65361
 #define KEY_RIGHT 65363
 #define KEY_ESC 65307
-#define MOVE_SPEED 0.1
-#define ROT_SPEED 0.05
+#define MOVE_SPEED 0.01
+#define ROT_SPEED 0.01
 
 #include "minilibx/mlx.h"
 #include <math.h>
@@ -72,6 +72,16 @@ typedef struct s_mlx
 	int			win_height;
 }				t_mlx;
 
+typedef struct s_key
+{
+	int			w;
+	int			a;
+	int			s;
+	int			d;
+	int			left;
+	int			right;
+}				t_key;
+
 typedef struct s_game
 {
 	t_mlx		mlx;
@@ -80,6 +90,7 @@ typedef struct s_game
 	t_tex tex[4]; // NO, SO, WE, EA
 	t_color		floor;
 	t_color		ceiling;
+	t_key		keys;
 }				t_game;
 
 typedef struct s_ray
