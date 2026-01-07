@@ -6,7 +6,7 @@
 /*   By: yseto < yseto@student.42tokyo.jp Mail>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 17:27:13 by yseto             #+#    #+#             */
-/*   Updated: 2026/01/06 15:46:30 by yseto            ###   ########.fr       */
+/*   Updated: 2026/01/06 19:10:31 by yseto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@ int	handle_key(int keycode, t_game *state)
 	return (0);
 }
 
-void	exit_game(t_game *state)
+int	exit_game(void *state)
 {
-	clean_state(state);
+	(void)state;
+	// clean_state(state);
 	exit(1);
 }
 

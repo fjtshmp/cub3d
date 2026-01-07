@@ -6,7 +6,7 @@
 /*   By: yseto < yseto@student.42tokyo.jp Mail>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 17:32:54 by yseto             #+#    #+#             */
-/*   Updated: 2026/01/06 15:31:36 by yseto            ###   ########.fr       */
+/*   Updated: 2026/01/07 15:22:44 by yseto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	init_draw_step(t_game *state, t_ray *ray, t_draw *d)
 	d->tex_pos = (ray->draw_start - h / 2 + ray->line_height / 2)
 		* d->step;
 }
-
 
 static int	get_tex_color(t_tex *tex, int x, int y)
 {

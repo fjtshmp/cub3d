@@ -6,7 +6,7 @@
 /*   By: yseto < yseto@student.42tokyo.jp Mail>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 15:33:40 by yseto             #+#    #+#             */
-/*   Updated: 2026/01/06 15:42:07 by yseto            ###   ########.fr       */
+/*   Updated: 2026/01/06 18:11:57 by yseto            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	draw_floor_ceiling(t_game *state)
 		if (y < height / 2)
 			draw_horizontal_line(state, y, state->ceiling.value);
 		else
-			draw_horizotal_line(state, y, state->floor.value);
+			draw_horizontal_line(state, y, state->floor.value);
 		y++;
 	}
 }
