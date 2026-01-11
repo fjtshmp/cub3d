@@ -1,22 +1,22 @@
-#include <stdlib.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <string.h>
-#include <ctype.h>
+#ifndef CUB3D_H
+#define CUB3D_H
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
-# endif
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
+
+# define TEX_NO 0
+# define TEX_SO 1
+# define TEX_WE 2
+# define TEX_EA 3
 
 typedef struct s_color
 {
 	int			red;
 	int			green;
 	int			blue;
-	int value; 
+	int value; // 0xRRGGBB にしておくと楽
 }				t_color;
 
 typedef struct s_tex
@@ -33,7 +33,7 @@ typedef struct s_tex
 
 typedef struct s_map
 {
-	char **grid; 
+	char **grid; // マップ文字列
 	int			width;
 	int			height;
 }				t_map;
@@ -66,15 +66,10 @@ typedef struct s_game
 	t_mlx		mlx;
 	t_map		map;
 	t_player	player;
-	t_tex tex[4]; 
+	t_tex tex[4]; // NO, SO, WE, EA
 	t_color		floor;
 	t_color		ceiling;
 }				t_game;
-
-# define TEX_NO 0
-# define TEX_SO 1
-# define TEX_WE 2
-# define TEX_EA 3
 
 typedef enum e_parse_state
 {
@@ -100,47 +95,30 @@ typedef struct s_parse
 
 void	parse(t_game *g, const char *path);
 
-/*
-** high-level steps (parse.c で使う想定)
-*/
+/* lifecycle */
 void	parse_init(t_parse *p);
 void	parse_free(t_parse *p);
 void	parse_finalize(t_game *g, t_parse *p);
 
-/*
-** one-line parsing
-*/
+/* per-line */
 void	parse_line(t_game *g, t_parse *p, char *raw_line);
 
-/*
-** config parsing
-*/
+/* config */
 int		is_config_line(const char *trim);
 void	parse_config_line(t_game *g, t_parse *p, const char *trim);
 
-/*
-** map building
-*/
+/* map */
 int		is_map_line(const char *line);
 void	map_push(t_game *g, t_parse *p, const char *line);
-
-/*
-** map finalize / validate
-*/
 void	map_finalize_grid(t_game *g, t_parse *p);
 void	map_set_player(t_game *g, t_parse *p);
 void	map_validate(t_game *g, t_parse *p);
 
-/*
-** utils
-*/
+/* utils */
 int		is_blank(const char *s);
 char	*dup_strip_eol(const char *s);
 
-/*
-** error (exit型)
-*/
+/* error (exit) */
 void	parse_fatal(t_game *g, t_parse *p, const char *msg);
 
-char	*get_next_line(int fd);
-char	*strtrim(char const *s1, char const *set);
+#endif
