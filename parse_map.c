@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/12 20:48:49 by shfujita          #+#    #+#             */
+/*   Updated: 2026/01/12 20:48:50 by shfujita         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 static int	is_map_char(char c)
 {
-	return (c == '0' || c == '1' || c == 'N' || c == 'S'
-		|| c == 'E' || c == 'W' || c == ' ' || c == '\t');
+	return (c == '0' || c == '1' || c == 'N' || c == 'S' || c == 'E' || c == 'W'
+		|| c == ' ' || c == '\t');
 }
 
 int	is_map_line(const char *line)
@@ -17,52 +29,12 @@ int	is_map_line(const char *line)
 	{
 		if (!is_map_char(*line))
 			return (0);
-		if (*line == '0' || *line == '1'
-			|| *line == 'N' || *line == 'S'
+		if (*line == '0' || *line == '1' || *line == 'N' || *line == 'S'
 			|| *line == 'E' || *line == 'W')
 			has_tile = 1;
 		line++;
 	}
 	return (has_tile);
-}
-
-void	map_finalize_grid(t_game *g, t_parse *p)
-{
-	int		y;
-	int		x;
-	int		w;
-	char	*row;
-	char	*src;
-
-	g->map.height = p->line_count;
-	g->map.width = p->max_width;
-	g->map.grid = (char **)malloc(sizeof(char *) * (g->map.height + 1));
-	if (!g->map.grid)
-		parse_fatal(g, p, "malloc");
-	y = 0;
-	while (y < g->map.height)
-	{
-		row = (char *)malloc((size_t)g->map.width + 1);
-		if (!row)
-			parse_fatal(g, p, "malloc");
-		x = 0;
-		while (x < g->map.width)
-			row[x++] = ' ';
-		row[g->map.width] = '\0';
-		src = p->lines[y];
-		w = (int)ft_strlen(src);
-		x = 0;
-		while (x < w && x < g->map.width)
-		{
-			row[x] = src[x];
-			if (row[x] == '\t')
-				row[x] = ' ';
-			x++;
-		}
-		g->map.grid[y] = row;
-		y++;
-	}
-	g->map.grid[g->map.height] = NULL;
 }
 
 static void	set_dir_plane(t_game *g, char c)

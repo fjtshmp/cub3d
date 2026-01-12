@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/12 16:12:13 by shfujita          #+#    #+#             */
+/*   Updated: 2026/01/12 18:20:57 by shfujita         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 int	is_blank(const char *s)
@@ -35,4 +47,16 @@ char	*dup_strip_eol(const char *s)
 	}
 	out[len] = '\0';
 	return (out);
+}
+
+int	is_space(char c)
+{
+	return (c == ' ' || c == '\t');
+}
+
+const char	*skip_space(const char *s)
+{
+	while (*s && is_space(*s))
+		s++;
+	return (s);
 }
