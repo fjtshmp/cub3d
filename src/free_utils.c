@@ -6,47 +6,47 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 16:08:05 by shfujita          #+#    #+#             */
-/*   Updated: 2026/01/12 16:09:04 by shfujita         ###   ########.fr       */
+/*   Updated: 2026/01/13 15:05:56 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	free_parse(t_parse *p)
+void	free_parse(t_parse *parse)
 {
 	int	i;
 
-	if (!p || !p->lines)
+	if (!parse || !parse->lines)
 		return ;
 	i = 0;
-	while (i < p->line_count)
+	while (i < parse->line_count)
 	{
-		free(p->lines[i]);
+		free(parse->lines[i]);
 		i++;
 	}
-	free(p->lines);
-	p->lines = NULL;
-	p->line_count = 0;
-	p->cap = 0;
-	p->max_width = 0;
+	free(parse->lines);
+	parse->lines = NULL;
+	parse->line_count = 0;
+	parse->cap = 0;
+	parse->max_width = 0;
 }
 
-void	free_map_grid(t_game *g)
+void	free_map_grid(t_game *state)
 {
 	int	y;
 
-	if (!g->map.grid)
+	if (!state->map.grid)
 		return ;
 	y = 0;
-	while (y < g->map.height)
+	while (y < state->map.height)
 	{
-		free(g->map.grid[y]);
+		free(state->map.grid[y]);
 		y++;
 	}
-	free(g->map.grid);
-	g->map.grid = NULL;
-	g->map.width = 0;
-	g->map.height = 0;
+	free(state->map.grid);
+	state->map.grid = NULL;
+	state->map.width = 0;
+	state->map.height = 0;
 }
 
 void	free_tex_paths(t_game *g)

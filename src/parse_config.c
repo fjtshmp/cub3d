@@ -6,7 +6,7 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 18:21:23 by shfujita          #+#    #+#             */
-/*   Updated: 2026/01/12 18:21:24 by shfujita         ###   ########.fr       */
+/*   Updated: 2026/01/13 15:43:35 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	parse_tex_line(t_game *state, t_parse *parse, const char *trim)
 	tmp = ft_strtrim(s, " \t");
 	if (!tmp)
 		parse_fatal(state, parse, "malloc");
-	state->tex[idx].file_path = strdup(tmp);
+	state->tex[idx].file_path = ft_strdup(tmp);
 	free(tmp);
 	if (!state->tex[idx].file_path)
 		parse_fatal(state, parse, "malloc");

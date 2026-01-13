@@ -6,7 +6,7 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:46:50 by shfujita          #+#    #+#             */
-/*   Updated: 2026/01/12 15:58:01 by shfujita         ###   ########.fr       */
+/*   Updated: 2026/01/13 14:54:40 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static char	*get_line(char *stash)
 		i++;
 	if (stash[i] == '\n')
 		i++;
-	res = ft_substr(stash, 0, i);
+	res = gnl_substr(stash, 0, i);
 	return (res);
 }
 
@@ -41,7 +41,7 @@ char	*get_remain_line(char *stash)
 		i++;
 	if (!stash[i])
 		return (free(stash), NULL);
-	tmp = ft_substr(stash, i, ft_strlen(stash + i));
+	tmp = gnl_substr(stash, i, gnl_strlen(stash + i));
 	free(stash);
 	return (tmp);
 }
@@ -59,13 +59,13 @@ char	*get_next_line(int fd)
 	buf = malloc(BUFFER_SIZE + 1);
 	if (!buf)
 		return (NULL);
-	while (!ft_strchr(stash, '\n') && bytes > 0)
+	while (!gnl_strchr(stash, '\n') && bytes > 0)
 	{
 		bytes = read(fd, buf, BUFFER_SIZE);
 		if (bytes < 0)
 			return (free(buf), free(stash), stash = NULL, NULL);
 		buf[bytes] = '\0';
-		stash = ft_strjoin(stash, buf);
+		stash = gnl_strjoin(stash, buf);
 		if (!stash)
 			return (free(buf), free(stash), stash = NULL, NULL);
 	}

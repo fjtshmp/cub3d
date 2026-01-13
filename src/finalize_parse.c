@@ -6,7 +6,7 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 19:40:43 by shfujita          #+#    #+#             */
-/*   Updated: 2026/01/12 19:40:43 by shfujita         ###   ########.fr       */
+/*   Updated: 2026/01/13 14:23:38 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ static void	check_cfg(t_game *state, t_parse *parse)
 		parse_fatal(state, parse, "missing map");
 }
 
-void	parse_finalize(t_game *g, t_parse *p)
+void	finalize_parse(t_game *g, t_parse *p)
 {
 	check_cfg(g, p);
-	map_finalize_grid(g, p);
-	map_set_player(g, p);
-	map_validate(g, p);
+	finalize_map_grid(g, p);
+	set_map_player(g, p);
+	validate_map(g, p);
 }

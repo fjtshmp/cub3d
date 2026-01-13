@@ -6,7 +6,7 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 18:22:04 by shfujita          #+#    #+#             */
-/*   Updated: 2026/01/12 18:22:05 by shfujita         ###   ########.fr       */
+/*   Updated: 2026/01/13 15:57:44 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,18 @@ static void	init_parse(t_parse *parse)
 	parse->player_count = 0;
 }
 
-static void	parse_cleanup_game_partial(t_game *g)
+void	cleanup_state(t_game *state)
 {
-	if (!g)
+	if (!state)
 		return ;
-	free_tex_paths(g);
-	free_map_grid(g);
+	free_tex_paths(state);
+	free_map_grid(state);
 }
 
-void	parse_fatal(t_game *g, t_parse *p, const char *msg)
+void	parse_fatal(t_game *state, t_parse *parse, const char *msg)
 {
-	free_parse(p);
-	parse_cleanup_game_partial(g);
+	free_parse(parse);
+	cleanup_state(state);
 	if (msg)
 	{
 		write(2, "Error\n", 6);
@@ -50,13 +50,13 @@ void	parse_fatal(t_game *g, t_parse *p, const char *msg)
 	exit(1);
 }
 
-static void	open_map(t_game *g, t_parse *p, const char *path, int *fd)
+static void	open_map(t_game *state, t_parse *parse, const char *path, int *fd)
 {
 	*fd = open(path, O_RDONLY);
 	if (*fd < 0)
 	{
 		perror("open");
-		parse_fatal(g, p, "failed to open .cub");
+		parse_fatal(state, parse, "failed to open .cub");
 	}
 }
 
@@ -75,6 +75,6 @@ void	parse(t_game *state, const char *path)
 		raw = get_next_line(fd);
 	}
 	close(fd);
-	parse_finalize(state, &parse);
+	finalize_parse(state, &parse);
 	free_parse(&parse);
 }

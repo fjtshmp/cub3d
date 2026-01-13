@@ -6,7 +6,7 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 17:52:53 by shfujita          #+#    #+#             */
-/*   Updated: 2026/01/12 18:19:17 by shfujita         ###   ########.fr       */
+/*   Updated: 2026/01/13 14:55:54 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	check_color_range(t_game *state, t_parse *parse, const char **s,
 	*s = skip_space(*s);
 	num_digit = 0;
 	value = 0;
-	while (**s && isdigit(**s))
+	while (**s && ft_isdigit(**s))
 	{
 		num_digit = 1;
 		value = value * 10 + (**s - '0');

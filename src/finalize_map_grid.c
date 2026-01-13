@@ -6,7 +6,7 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 20:27:42 by shfujita          #+#    #+#             */
-/*   Updated: 2026/01/12 20:46:00 by shfujita         ###   ########.fr       */
+/*   Updated: 2026/01/13 14:22:28 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	copy_src_to_row(t_game *state, char *row, const char *src)
 	}
 }
 
-void	map_finalize_grid(t_game *state, t_parse *parse)
+void	finalize_map_grid(t_game *state, t_parse *parse)
 {
 	int		y;
 	char	*row;

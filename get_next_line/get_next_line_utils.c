@@ -6,13 +6,13 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 14:55:44 by shfujita          #+#    #+#             */
-/*   Updated: 2025/06/10 18:40:21 by shfujita         ###   ########.fr       */
+/*   Updated: 2026/01/13 14:58:04 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(const char *str)
+size_t	gnl_strlen(const char *str)
 {
 	size_t	len;
 
@@ -24,7 +24,7 @@ size_t	ft_strlen(const char *str)
 	return (len);
 }
 
-char	*ft_strchr(const char *str, int c)
+char	*gnl_strchr(const char *str, int c)
 {
 	if (!str)
 		return (NULL);
@@ -39,7 +39,7 @@ char	*ft_strchr(const char *str, int c)
 	return (NULL);
 }
 
-char	*ft_strndup(const char *s)
+char	*gnl_strdup(const char *s)
 {
 	char	*dup;
 	int		len;
@@ -62,7 +62,7 @@ char	*ft_strndup(const char *s)
 	return (dup);
 }
 
-char	*ft_substr(const char *s, unsigned int start, size_t len)
+char	*gnl_substr(const char *s, unsigned int start, size_t len)
 {
 	size_t	sublen;
 	size_t	i;
@@ -70,7 +70,7 @@ char	*ft_substr(const char *s, unsigned int start, size_t len)
 
 	if (!s)
 		return (NULL);
-	if (start >= ft_strlen(s))
+	if (start >= gnl_strlen(s))
 		return (NULL);
 	i = start;
 	while (s[i] && len--)
@@ -89,7 +89,7 @@ char	*ft_substr(const char *s, unsigned int start, size_t len)
 	return (res);
 }
 
-char	*ft_strjoin(char *dest, char const *src)
+char	*gnl_strjoin(char *dest, char const *src)
 {
 	size_t	len1;
 	size_t	len2;
@@ -97,9 +97,9 @@ char	*ft_strjoin(char *dest, char const *src)
 	size_t	i;
 
 	if (!dest)
-		dest = ft_strdup("");
-	len1 = ft_strlen(dest);
-	len2 = ft_strlen(src);
+		dest = gnl_strdup("");
+	len1 = gnl_strlen(dest);
+	len2 = gnl_strlen(src);
 	res = malloc(len1 + len2 + 1);
 	if (!res || !dest)
 		return (NULL);
