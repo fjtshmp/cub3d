@@ -2,8 +2,8 @@
 
 static void	print_color(const char *name, const t_color *c)
 {
-	printf("%s: R=%d G=%d B=%d value=0x%06X\n",
-		name, c->red, c->green, c->blue, c->value & 0xFFFFFF);
+	printf("%s: R=%d G=%d B=%d value=0x%06X\n", name, c->red, c->green, c->blue,
+		c->value & 0xFFFFFF);
 }
 
 static void	print_tex(const t_game *g)
@@ -31,37 +31,28 @@ static void	print_map(const t_game *g)
 	y = 0;
 	while (g->map.grid && g->map.grid[y])
 	{
-		printf("|%s|\n", g->map.grid[y]); 
+		printf("|%s|\n", g->map.grid[y]);
 		y++;
 	}
-}
-
-static void	init_game(t_game *g)
-{
-	memset(g, 0, sizeof(*g));
 }
 
 int	main(int argc, char **argv)
 {
 	t_game	g;
 
-	init_game(&g);
-	
+	ft_memset(&g, 0, sizeof(g));
 	if (argc != 2)
 	{
 		printf("Usage: %s <map.cub>\n", argv[0]);
 		return (1);
 	}
-
 	/* ここで exit 型の parse が動く（失敗時は戻らない） */
 	parse(&g, argv[1]);
-
 	/* 成功したら内容を表示 */
 	print_tex(&g);
 	print_color("Floor", &g.floor);
 	print_color("Ceiling", &g.ceiling);
 	print_player(&g.player);
 	print_map(&g);
-
 	return (0);
 }

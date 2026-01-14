@@ -6,7 +6,7 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 20:48:49 by shfujita          #+#    #+#             */
-/*   Updated: 2026/01/13 14:23:38 by shfujita         ###   ########.fr       */
+/*   Updated: 2026/01/13 16:32:34 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,32 +37,33 @@ int	is_map_line(const char *line)
 	return (has_tile);
 }
 
-static void	check_floor_surrounded(t_game *g, t_parse *p, int y, int x)
+static void	check_floor_surrounded(t_game *state, t_parse *parse, int y, int x)
 {
-	if (y <= 0 || x <= 0 || y >= g->map.height - 1 || x >= g->map.width - 1)
-		parse_fatal(g, p, "map not closed (floor on border)");
-	if (g->map.grid[y - 1][x] == ' ' || g->map.grid[y + 1][x] == ' '
-		|| g->map.grid[y][x - 1] == ' ' || g->map.grid[y][x + 1] == ' ')
-		parse_fatal(g, p, "map not closed (floor touches void)");
+	if (y <= 0 || x <= 0 || y >= state->map.height - 1 || x >= state->map.width
+		- 1)
+		parse_fatal(state, parse, "map not closed (floor on border)");
+	if (state->map.grid[y - 1][x] == ' ' || state->map.grid[y + 1][x] == ' '
+		|| state->map.grid[y][x - 1] == ' ' || state->map.grid[y][x + 1] == ' ')
+		parse_fatal(state, parse, "map not closed (floor touches void)");
 }
 
-void	validate_map(t_game *g, t_parse *p)
+void	validate_map(t_game *state, t_parse *parse)
 {
 	int		y;
 	int		x;
 	char	c;
 
 	y = 0;
-	while (y < g->map.height)
+	while (y < state->map.height)
 	{
 		x = 0;
-		while (x < g->map.width)
+		while (x < state->map.width)
 		{
-			c = g->map.grid[y][x];
+			c = state->map.grid[y][x];
 			if (!(c == '0' || c == '1' || c == ' '))
-				parse_fatal(g, p, "invalid char in map");
+				parse_fatal(state, parse, "invalid char in map");
 			if (c == '0')
-				check_floor_surrounded(g, p, y, x);
+				check_floor_surrounded(state, parse, y, x);
 			x++;
 		}
 		y++;

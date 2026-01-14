@@ -33,7 +33,7 @@ typedef struct s_tex
 
 typedef struct s_map
 {
-	char **grid; // マップ文字列
+	char			**grid;
 	int				width;
 	int				height;
 }					t_map;
@@ -94,12 +94,12 @@ typedef struct s_parse
 }					t_parse;
 
 void				parse(t_game *state, const char *path);
-void				parse_fatal(t_game *g, t_parse *p, const char *msg);
+void				parse_fatal(t_game *state, t_parse *pares, const char *msg);
 int					is_blank(const char *s);
 char				*dup_strip_eol(const char *s);
 int					is_space(char c);
 const char			*skip_space(const char *s);
-void				validate_map(t_game *g, t_parse *p);
+void				validate_map(t_game *state, t_parse *parse);
 int					is_map_line(const char *line);
 void				parse_line(t_game *state, t_parse *parse, char *raw_line);
 void				parse_config_line(t_game *state, t_parse *parse,
@@ -108,10 +108,10 @@ int					is_config_line(const char *trim);
 void				parse_color_line(t_game *state, t_parse *parse,
 						const char *trimed_line);
 void				map_push(t_game *state, t_parse *parse, const char *line);
-void				free_tex_paths(t_game *g);
-void				free_map_grid(t_game *g);
-void				free_parse(t_parse *p);
-void				finalize_parse(t_game *g, t_parse *p);
+void				free_tex_paths(t_game *state);
+void				free_map_grid(t_game *state);
+void				free_parse(t_parse *state);
+void				finalize_parse(t_game *state, t_parse *parse);
 void				finalize_map_grid(t_game *state, t_parse *parse);
 void				set_map_player(t_game *state, t_parse *parse);
 void				cleanup_state(t_game *state);
