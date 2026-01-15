@@ -6,7 +6,7 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 16:01:23 by shfujita          #+#    #+#             */
-/*   Updated: 2026/01/12 16:52:01 by shfujita         ###   ########.fr       */
+/*   Updated: 2026/01/15 20:11:37 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ static char	*handle_raw_line(t_game *state, t_parse *parse, char *raw_line)
 		}
 		else
 		{
-			free(line);
 			parse_fatal(state, parse, "blank line in map");
 		}
 	}
@@ -68,16 +67,17 @@ void	parse_line(t_game *state, t_parse *parse, char *raw_line)
 	line = handle_raw_line(state, parse, raw_line);
 	if (!line)
 		return ;
+	parse->cur_line = line;
 	trimed_line = ft_strtrim(line, " \t");
 	if (!trimed_line)
-	{
-		free(line);
 		parse_fatal(state, parse, "malloc");
-	}
+	parse->cur_trim = trimed_line;
 	if (parse->state == ST_CFG)
 		handle_cfg_line(state, parse, line, trimed_line);
 	else
 		handle_map_line(state, parse, line);
 	free(trimed_line);
+	parse->cur_trim = NULL;
 	free(line);
+	parse->cur_line = NULL;
 }

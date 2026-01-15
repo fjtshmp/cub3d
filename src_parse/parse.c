@@ -6,7 +6,7 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 18:22:04 by shfujita          #+#    #+#             */
-/*   Updated: 2026/01/13 15:57:44 by shfujita         ###   ########.fr       */
+/*   Updated: 2026/01/15 20:06:58 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ static void	init_parse(t_parse *parse)
 	parse->cap = 0;
 	parse->max_width = 0;
 	parse->player_count = 0;
+	parse->fd = -1;
+	parse->cur_line = NULL;
+	parse->cur_trim = NULL;
 }
 
 void	cleanup_state(t_game *state)
@@ -39,6 +42,7 @@ void	cleanup_state(t_game *state)
 
 void	parse_fatal(t_game *state, t_parse *parse, const char *msg)
 {
+	drain_gnl_and_close(parse);
 	free_parse(parse);
 	cleanup_state(state);
 	if (msg)
@@ -63,18 +67,17 @@ static void	open_map(t_game *state, t_parse *parse, const char *path, int *fd)
 void	parse(t_game *state, const char *path)
 {
 	t_parse	parse;
-	int		fd;
 	char	*raw;
 
 	init_parse(&parse);
-	open_map(state, &parse, path, &fd);
-	raw = get_next_line(fd);
+	open_map(state, &parse, path, &parse.fd);
+	raw = get_next_line(parse.fd);
 	while (raw)
 	{
 		parse_line(state, &parse, raw);
-		raw = get_next_line(fd);
+		raw = get_next_line(parse.fd);
 	}
-	close(fd);
+	close(parse.fd);
 	finalize_parse(state, &parse);
 	free_parse(&parse);
 }

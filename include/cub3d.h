@@ -169,6 +169,10 @@ typedef struct s_parse
 	int				max_width;
 
 	int				player_count;
+
+	int				fd;
+	char			*cur_line;
+	char			*cur_trim;
 }					t_parse;
 
 /* ===================== error / exit ===================== */
@@ -223,6 +227,7 @@ void				validate_map(t_game *state, t_parse *parse);
 void				finalize_parse(t_game *state, t_parse *parse);
 void				finalize_map_grid(t_game *state, t_parse *parse);
 void				set_map_player(t_game *state, t_parse *parse);
+void				drain_gnl_and_close(t_parse *p);
 
 /* ===================== cleanup ===================== */
 

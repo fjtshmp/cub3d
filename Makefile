@@ -6,7 +6,7 @@
 #    By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/15 15:23:25 by shfujita          #+#    #+#              #
-#    Updated: 2026/01/15 16:07:14 by shfujita         ###   ########.fr        #
+#    Updated: 2026/01/15 17:38:00 by shfujita         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ NAME        := cub3D
 
 CC          := cc
 CFLAGS      := -Wall -Wextra -Werror
-CFLAGS += -fsanitize=address
+# CFLAGS += -fsanitize=address
 DEBUG       := -g
 RM          := rm -f
 
